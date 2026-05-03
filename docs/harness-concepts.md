@@ -12,6 +12,7 @@
 - `UI`：展示层与交互层；可依赖全部下层。
 
 禁止反向依赖，例如：
+
 - `Repo` 依赖 `Service`
 - `Types` 依赖 `UI`
 
@@ -24,6 +25,7 @@
 3. 降低提示噪声，提升执行稳定性与可维护性。
 
 建议索引：
+
 - 场景说明：`docs/scenario.md`
 - Agent流程：`docs/agent-workflow.md`
 - Prompt治理：`docs/prompt-policy.md`

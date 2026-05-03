@@ -24,6 +24,14 @@ jobs:
         run: |
           python3 scripts/check_layering.py
 
+      - name: Unit tests
+        run: |
+          python3 -m unittest discover -s tests
+
+      - name: Policy reminder
+        run: |
+          echo "If prompts/strategy changed, update docs/prompt-policy.md"
+
   pre-commit:
     runs-on: ubuntu-latest
     steps:
