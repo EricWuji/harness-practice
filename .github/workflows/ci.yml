@@ -24,6 +24,10 @@ jobs:
         run: |
           python3 scripts/check_layering.py
 
+      - name: Policy reminder
+        run: |
+          echo "If prompts/strategy changed, update docs/prompt-policy.md"
+
   markdown-lint:
     runs-on: ubuntu-latest
     steps:
