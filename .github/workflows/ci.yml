@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  docs-and-policy-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Basic structure check
+        run: |
+          test -f AGENTS.md
+          test -f docs/scenario.md
+          test -f docs/agent-workflow.md
+          test -f docs/prompt-policy.md
+          test -f docs/harness-concepts.md
+
+      - name: Layering dependency check
+        run: |
+          python3 scripts/check_layering.py
+
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install pre-commit
+        run: pip install pre-commit
+
+      - name: Run pre-commit
+        run: pre-commit run --all-files
+
+  markdown-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Lint markdown with markdownlint-cli
+        run: |
+          npm install -g markdownlint-cli
+          markdownlint README.md AGENTS.md docs/*.md Types/*.md Config/*.md Repo/*.md Service/*.md Runtime/*.md UI/*.md

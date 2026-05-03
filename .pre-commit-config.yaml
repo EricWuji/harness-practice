@@ -1,0 +1,30 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-yaml
+
+  - repo: local
+    hooks:
+      - id: layering-check
+        name: layering dependency check
+        entry: python3 scripts/check_layering.py
+        language: system
+        pass_filenames: false
+
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.45.0
+    hooks:
+      - id: markdownlint
+        args:
+          - README.md
+          - AGENTS.md
+          - docs/*.md
+          - Types/*.md
+          - Config/*.md
+          - Repo/*.md
+          - Service/*.md
+          - Runtime/*.md
+          - UI/*.md
